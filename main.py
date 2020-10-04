@@ -42,14 +42,14 @@ def callback():
         'client_id': client,
         'client_secret': secret
     }
-    return 'hello world'
+    # return 'hello world'
 
-    # res = requests.post(url=url, data=body)
+    res = requests.post(url=url, data=body)
     # User = user.User(json.loads(res.text)['access_token'], json.loads(res.text)['expires_in'])
     # User.get_playlists()
     # lyrics = 'foo'
     # output = lyrics + '\n metadata:' + str(vars(User))
-    # return(output)
+    return(res.text)
 
 
 app.run()
