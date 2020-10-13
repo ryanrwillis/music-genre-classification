@@ -11,7 +11,7 @@ client = client_ID
 secret = client_secret
 callback = 'http://localhost:5000/callback'
 
-
+# defining what data to get from the user
 scopes = 'user-read-private user-read-email user-read-currently-playing playlist-read-private playlist-modify-public'
 
 @app.route('/', methods=['GET'])
