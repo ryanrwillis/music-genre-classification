@@ -45,11 +45,16 @@ def callback():
     # return 'hello world'
 
     res = requests.post(url=url, data=body)
+    token = json.loads(res.text)['access_token']
+
+    foo = requests.get(url= 'https://api.spotify.com/v1/me', headers={'Authorization': 'Bearer ' + token})
+    #
+    print(json.loads(foo.text))
     # User = user.User(json.loads(res.text)['access_token'], json.loads(res.text)['expires_in'])
     # User.get_playlists()
     # lyrics = 'foo'
     # output = lyrics + '\n metadata:' + str(vars(User))
-    return(res.text)
+    return(token)
 
 
 app.run()

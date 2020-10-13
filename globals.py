@@ -1,0 +1,1 @@
+spotify_api_base = 'https://api.spotify.com/v1/'
