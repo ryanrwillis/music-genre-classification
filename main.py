@@ -7,6 +7,8 @@ import json
 import playlist
 from azlyrics import azlyrics
 from urllib.parse import urlencode
+from search import search_playlist
+from build_dataset import build_dataset
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
@@ -15,7 +17,7 @@ secret = client_secret
 callback = 'http://localhost:5000/callback'
 
 # defining what data to get from the user
-scopes = 'user-read-private user-read-email user-read-currently-playing playlist-read-private playlist-modify-public'
+scopes = 'user-read-private user-read-email user-read-currently-playing playlist-modify-public'
 
 @app.route('/', methods=['GET'])
 def main():
@@ -45,24 +47,28 @@ def callback():
         'client_id': client,
         'client_secret': secret
     }
-    # return 'hello world'
 
     res = requests.post(url=url, data=body)
     token = json.loads(res.text)['access_token']
+
 
     bar = playlist.Playlist(id='37i9dQZF1E35k73659EuOH', auth_token=token)
     songs = bar.get_tracks()
     songs_short = songs[:10]
 
-    for song in songs_short:
-        song_nm = re.sub("[\(\[].*?[\)\]]", "", song['name'])
-        lyrics = azlyrics.lyrics(artist=song['artist'], song=song_nm)
-        if 'Error' not in lyrics:
-            song['lyrics'] = lyrics
-        print(song['name'], song['artist'])
-
-
-    return(json.dumps(songs_short))
-
-
+    # for song in songs_short:
+    #     song_nm = re.sub("[\(\[].*?[\)\]]", "", song['name'])
+    #     lyrics = azlyrics.lyrics(artist=song['artist'], song=song_nm)
+    #     if 'Error' not in lyrics:
+    #         song['lyrics'] = lyrics
+    #     print(song['name'], song['artist'])
+    # print(searchPlaylist(token=token, key='%rap%'))
+    # return(search_playlist(token=token, key='rap'))
+    dataset = build_dataset(
+        genre_list=['rap', 'country', 'rock', 'edm', 'folk', 'christian', 'metal', 'punk'],
+        token=token,
+    )
+    print(dataset)
+    return({'set': dataset})
+    # return(json.dumps(songs_short))
 app.run()
