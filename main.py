@@ -14,7 +14,7 @@ app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 client = client_ID
 secret = client_secret
-callback = 'http://localhost:5000/callback'
+callbackAddress = 'http://localhost:5000/callback'
 
 # defining what data to get from the user
 scopes = 'user-read-private user-read-email user-read-currently-playing playlist-modify-public'
