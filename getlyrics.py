@@ -1,16 +1,10 @@
-# pip install ksoftapi first
-# 
-import ksoftapi
+# for testing API
 
-kclient = ksoftapi.Client('6MdqqkQ8sSC0WB4i8PyRuQ')
+from urllib.request import urlopen, Request
 
-async def find_lyrics(query: str):
-    try:
-        results = await kclient.music.lyrics(query)
-    except ksoftapi.NoResults:
-        print('No lyrics found for ' + query)
-    else:
-        first = results[0]
-        print(first.lyrics)
-
-find_lyrics("No Diggity")
+def getLyrics(artist, title):
+    request = Request("https://api.lyrics.ovh/v1/"+artist+"/"+title)
+    response_body = urlopen(request).read()
+    print(response_body)
+    
+getLyrics("eminem", "rap_god")
