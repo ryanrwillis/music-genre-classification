@@ -56,14 +56,6 @@ def callback():
     songs = bar.get_tracks()
     songs_short = songs[:10]
 
-    # for song in songs_short:
-    #     song_nm = re.sub("[\(\[].*?[\)\]]", "", song['name'])
-    #     lyrics = azlyrics.lyrics(artist=song['artist'], song=song_nm)
-    #     if 'Error' not in lyrics:
-    #         song['lyrics'] = lyrics
-    #     print(song['name'], song['artist'])
-    # print(searchPlaylist(token=token, key='%rap%'))
-    # return(search_playlist(token=token, key='rap'))
     dataset = build_dataset(
         genre_list=['rap', 'country', 'rock', 'edm', 'folk', 'christian', 'metal', 'punk'],
         token=token,
